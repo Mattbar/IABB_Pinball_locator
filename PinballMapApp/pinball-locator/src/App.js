@@ -84,9 +84,9 @@ function App() {
       )}
       {location.length > 0 && !errors && (
         <div>
-          <h3>Location:</h3>
+          <h3>Location</h3>
           <Table list={location} colNames={locationHeaders} />
-          <h3>Machines:</h3>
+          <h3>Machines</h3>
           <ol>
             {machines.map((machine, index) => (
               <li key={`${machine}-${index}`}>{machine}</li>

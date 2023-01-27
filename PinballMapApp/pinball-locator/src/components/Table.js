@@ -1,4 +1,5 @@
 import './Table.css'
+
 const Table = ({ list, colNames, width = "auto", height = "auto" }) => {
   return (
     <div>
@@ -27,4 +28,5 @@ const Table = ({ list, colNames, width = "auto", height = "auto" }) => {
     </div>
   )
 }
+
 export default Table;

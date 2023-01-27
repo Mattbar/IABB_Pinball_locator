@@ -24,6 +24,11 @@ function App() {
   const locationHeaders = ['name', 'street', 'city', 'state']
 
   const getLocation = async () => {
+    if(lat === '' || longitude === '') {
+      setErrors('Must input both Latitude and Longitude');
+      return;
+    }
+
     const request = `${BASEURL}locations/closest_by_lat_lon.json?lat=${lat};lon=${longitude};max_distance=500`;
     const data = await fetch(request)
                   .then((res) => {
@@ -41,17 +46,20 @@ function App() {
     if(errors){
       setErrors();
     }
-    const newLoc = reduceObject(data.location, locationHeaders)
+    const newLoc = reduceObject(data.location, locationHeaders);
     setLocation([newLoc]);
-    setMachines(data.location.machine_names)
+    setMachines(data.location.machine_names);
   };
 
   const handleFindMe = () => {
     navigator.geolocation.getCurrentPosition((position) => {
-      setLat(position.coords.latitude)
-      setLongitude(position.coords.longitude)
+      setLat(position.coords.latitude);
+      setLongitude(position.coords.longitude);
     });
   };
+
+  const handleDisabled = () => lat !== '' && longitude !== '';
+  
 
   return (
     <div className="App">
@@ -59,6 +67,7 @@ function App() {
       <label htmlFor="latitude">Latitude</label>
       <input
         name="latitude"
+        type='number'
         value={lat}
         onChange={(e) => setLat(e.target.value)}
       />
@@ -66,16 +75,17 @@ function App() {
       <input
         name="longitude"
         value={longitude}
+        type='number'
         onChange={(e) => setLongitude(e.target.value)}
       />
       <div className='buttons'>
         <button className='action_btn' onClick={handleFindMe}>Locate Me</button>
-        <button className='action_btn' onClick={() => getLocation()}>Submit</button>
+        <button className='action_btn' disabled={handleDisabled} onClick={() => getLocation()}>Submit</button>
       </div>
       {errors && (
         <h3 style={{color: 'red'}}>{errors}</h3>
       )}
-      {location && !errors && (
+      {location.length > 0 && !errors && (
         <div>
           <h3>Location:</h3>
           <Table list={location} colNames={locationHeaders} />
@@ -85,7 +95,6 @@ function App() {
               <li key={`${machine}-${index}`}>{machine}</li>
             ))}
           </ol>
-
         </div>
       )}
     </div>

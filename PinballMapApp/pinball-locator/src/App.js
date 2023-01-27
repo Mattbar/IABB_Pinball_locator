@@ -57,10 +57,7 @@ function App() {
       setLongitude(position.coords.longitude);
     });
   };
-
-  const handleDisabled = () => lat !== '' && longitude !== '';
   
-
   return (
     <div className="App">
       <h1>Pinball Locations Near Me</h1>
@@ -80,7 +77,7 @@ function App() {
       />
       <div className='buttons'>
         <button className='action_btn' onClick={handleFindMe}>Locate Me</button>
-        <button className='action_btn' disabled={handleDisabled} onClick={() => getLocation()}>Submit</button>
+        <button className='action_btn' onClick={getLocation}>Submit</button>
       </div>
       {errors && (
         <h3 style={{color: 'red'}}>{errors}</h3>

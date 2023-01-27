@@ -1,6 +1,7 @@
-# What App Does
+# App
 
 This application allows you to input coordinates in order to get the closest location with a pinball machine. You can also select the "Locate Me" button to grab your current coordinates.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
